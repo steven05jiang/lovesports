@@ -194,10 +194,12 @@ DROP TABLE IF EXISTS `following`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `following` (
-  `follower` varchar(45) NOT NULL,
-  `followee` varchar(45) NOT NULL,
-  PRIMARY KEY (`follower`,`followee`),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `follower` varchar(45) DEFAULT NULL,
+  `followee` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`),
   KEY `following2_idx` (`followee`),
+  KEY `following1` (`follower`),
   CONSTRAINT `following1` FOREIGN KEY (`follower`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `following2` FOREIGN KEY (`followee`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -366,7 +368,7 @@ CREATE TABLE `subscription` (
   KEY `subscription2_idx` (`categoryId`),
   CONSTRAINT `subscription1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `subscription2` FOREIGN KEY (`categoryId`) REFERENCES `category` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -406,31 +408,6 @@ LOCK TABLES `text` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `token`
---
-
-DROP TABLE IF EXISTS `token`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `token` (
-  `username` varchar(45) NOT NULL,
-  `content` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`username`),
-  CONSTRAINT `token2user` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `token`
---
-
-LOCK TABLES `token` WRITE;
-/*!40000 ALTER TABLE `token` DISABLE KEYS */;
-INSERT INTO `token` VALUES ('Alice@gmail.com','[B@20b7b759'),('Grace@gmail.com','[B@f614367'),('Hera@gmail.com','[B@38d0d4ca'),('steven05jiang@gmail.com','[B@24c17998');
-/*!40000 ALTER TABLE `token` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `user`
 --
 
@@ -467,4 +444,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-04-08  0:26:46
+-- Dump completed on 2015-04-10  1:30:09
